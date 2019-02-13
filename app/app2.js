@@ -10,7 +10,10 @@ $(document).ready(function(){
   //var keyData = 'ourKey'; // going to need to make this dynamic?
 //$('.container-data').append('<div class="note">' + localStorage.getItem() + '</div>');
 //[{title:, note:, time: }, ...]
-let arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
+let arr = [];
+_.flatten([JSON.parse(localStorage.getItem('notepad'))]).includes(null) ? arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]).slice(1) : arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
+// let arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
+console.log(arr);
 const localNotes = {...localStorage}
 function storedNotes(){
   arr.forEach(obj => { 
@@ -33,6 +36,7 @@ storedNotes();
     // write to db
     // let arrAdd = [];
     arr.push( {title: keyData, body: valueData, time: timeStamp} );
+    console.log(arr);
     localStorage.setItem('notepad', JSON.stringify(arr));
     // read from db
     // var displayText = keyData + ' | ' + localStorage.getItem(keyData);
@@ -61,7 +65,7 @@ storedNotes();
 //edit box
 let editText, editTitle;
   $('.noteBoard').on('click', '.card', function(e){
-    console.log(e);
+    //console.log(e);
     editText = e.currentTarget.lastChild.children["0"].innerText;
     editTitle = e.currentTarget.lastChild.children["0"].dataset.keyvalue;
     //var $editText = $(`<textarea type="text" class="edit-value">${editText}</textarea>`);
@@ -90,33 +94,32 @@ let editText, editTitle;
   })
 
 //update
-  // $('.btn-update').on('click', function(){
-  //   console.log('works');
-  //   let newTitle = $('.edit-key').val();
-  //   let newText = $('.edit-value').val();
-  //   // localStorage.removeItem(editTitle);
-  //   // localStorage.setItem(newTitle, newText);
-  //   var arrUpdate = arr.forEach(obj => {
-  //     if (editTitle === obj["title"]) {
-  //       obj["title"] = newTitle;
-  //       obj["body"] = newText;
-  //     }
-  //   })
-  //   console.log(arrUpdate);
-  //   localStorage.setItem('notepad', JSON.stringify(arrUpdate));
-  //   arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
-  //   $('.noteBoard').empty();
-  //   storedNotes();
-  //   //let $card = $(`<div class="card"></div>`);
-
-
-  // })
+  $('.btn-update').on('click', function(){
+    //console.log('works');
+    let newTitle = $('.edit-key').val();
+    let newText = $('.edit-value').val();
+    let timeStamp = new Date();
+    // localStorage.removeItem(editTitle);
+    // localStorage.setItem(newTitle, newText);
+    var arrUpdate = arr.map((obj)  => {
+      if (editTitle === obj["title"]) {
+        console.log('hello');
+        return ({title: newTitle, body: newText, time: timeStamp});
+      }else {
+        return obj;
+      }
+    })
+    localStorage.setItem('notepad', JSON.stringify(arrUpdate));
+    arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
+    $('.noteBoard').empty();
+    storedNotes();
+  })
 
 //removes overlay
-  // $('#overlay').on('click', function (){
-  //   $('#overlay').css('display', 'none');
+  $('#overlay').on('click', function (){
+    $('#overlay').css('display', 'none');
 
-  // })
+  })
   //uncross line
   //  $('.container-data').on('click', '.note', function(e){
   //   // console.log(e.currentTarget);
