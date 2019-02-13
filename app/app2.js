@@ -89,6 +89,8 @@ let editText, editTitle;
     var arrDel = arr.filter(obj => obj["title"] !== editTitle)
     localStorage.setItem('notepad', JSON.stringify(arrDel));
     arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
+    $('#overlay').css('display', 'none');
+    $('.box').hide();
     $('.noteBoard').empty();
     storedNotes();
   })
@@ -111,6 +113,8 @@ let editText, editTitle;
     })
     localStorage.setItem('notepad', JSON.stringify(arrUpdate));
     arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
+    $('#overlay').css('display', 'none');
+    $('.box').hide();
     $('.noteBoard').empty();
     storedNotes();
   })
@@ -133,7 +137,9 @@ let editText, editTitle;
   // delete all?
   $('.btn-clear').click(function(){
     localStorage.clear();
-    $('.container-data').text('');
+    arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
+    $('.noteBoard').empty();
+    storedNotes();
   });
 
 });

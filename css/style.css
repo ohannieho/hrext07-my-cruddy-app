@@ -1,24 +1,42 @@
+.container-main{
+	display: grid;
+	justify-content: center;
+}
 .container-form {
-	padding-bottom: 10px;
+	display: grid;
+	justify-content: center;
+	text-align: center;
+	border-radius: 10px;
+	padding: 10px;
+	margin-bottom: 10px;
 	height: auto;
-	width: 250px;
+	width: 500px;
+	color: black;
+	border: 1px solid rgba(0,0,0,0.2);
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
 }
 
-.input-key{
+.input-key, .edit-key{
 	height: auto;
-	width: 250px;
+	width: 200px;
+	border: 0px;
+	padding-bottom: 5px;
+	font-family: Roboto,Arial,sans-serif;
 }
-.input-value{
+.input-value, .edit-value{
 	height: auto;
-	width: 250px;
+	width: 200px;
+	border:0px;
+	font-family: Roboto,Arial,sans-serif;
+	resize: vertical;
 }
 
-.container-data {
-/*	height: 250px;
+/*.container-data {
+	height: 250px;
 	width: 250px;
-	border: 1px solid gray;*/
+	border: 1px solid gray;
 	padding: 5px;
-}
+}*/
 
 
 .card {
@@ -26,36 +44,41 @@
 	padding: 10px;
 	margin-bottom: 10px;
 	height: auto;
-	width: 250px;
+	width: 500px;
 	color: black;
-	border: 0.50px solid gray;
+	border:  1px solid rgba(0,0,0,0.2);
 	font-family: Roboto,Arial,sans-serif;
-	/*box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07)*/
+	box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07)
 }
 
 
 .note-title{
-	font-weight: bold;
+	font-weight: 550;
 	padding: 5px;
+	font-size: 17.5px;
 }
 .note{
-	margin-top: 5px;
-	font-weight: lighter;
+	margin-top: 10px;
+	font-weight: 400;
+	font-size: .875rem;
+	letter-spacing: .01428571em;
+	line-height: 1.25rem;
 	white-space: pre-wrap;
-	word-wrap: break-word;
-	/*padding: 5px;*/
+	/*word-wrap: break-word;*/
 }
 
 .box{
    	width: 300px;
-    height: 200px;
-    line-height: 200px;
+    height: auto;
+    /*line-height: 200px;*/
+    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     position: fixed;
     top: 50%; 
     left: 50%;
     margin-top: -100px;
     margin-left: -150px;
     background-color: white;
+    border:  1px solid rgba(0,0,0,0.2);
     border-radius: 5px;
     text-align: center;
     z-index: 11;
