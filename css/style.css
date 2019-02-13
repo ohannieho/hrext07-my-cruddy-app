@@ -1,0 +1,68 @@
+.container-form {
+	padding-bottom: 10px;
+	height: auto;
+	width: 250px;
+}
+
+.input-key{
+	height: auto;
+	width: 250px;
+}
+.input-value{
+	height: auto;
+	width: 250px;
+}
+
+.container-data {
+/*	height: 250px;
+	width: 250px;
+	border: 1px solid gray;*/
+	padding: 5px;
+}
+
+
+.card {
+	border-radius: 10px;
+	padding: 10px;
+	margin-bottom: 10px;
+	height: auto;
+	width: 250px;
+	color: black;
+	border: 0.50px solid gray;
+	font-family: Roboto,Arial,sans-serif;
+	/*box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07)*/
+}
+
+
+.note-title{
+	font-weight: bold;
+	padding: 5px;
+}
+.note{
+	margin-top: 5px;
+	font-weight: lighter;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	/*padding: 5px;*/
+}
+
+.box{
+	display: none;
+	align-content: center;
+	height: 250px;
+	width: 250px;
+	color: black;
+	border: 0.50px solid gray;
+}
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0; 
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.2); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
