@@ -118,6 +118,7 @@ let editText, editTitle;
 //removes overlay
   $('#overlay').on('click', function (){
     $('#overlay').css('display', 'none');
+    $('.box').hide();
 
   })
   //uncross line
