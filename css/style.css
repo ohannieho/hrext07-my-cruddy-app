@@ -14,6 +14,7 @@
 	color: black;
 	border: 1px solid rgba(0,0,0,0.2);
 	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+	background-color: white;
 }
 
 .input-key, .edit-key{
@@ -21,14 +22,40 @@
 	width: 200px;
 	border: 0px;
 	padding-bottom: 5px;
+	font-size: 17.5px;
 	font-family: Roboto,Arial,sans-serif;
+	background-color: inherit;
 }
 .input-value, .edit-value{
 	height: auto;
 	width: 200px;
 	border:0px;
+	font-size: .875rem;
 	font-family: Roboto,Arial,sans-serif;
 	resize: vertical;
+	background-color: inherit;
+}
+#color-box {
+	display: none;
+	padding: 5px;
+	flex-direction: row;
+	height: auto;
+	width: auto;
+	border: 1px solid rgba(0,0,0,0.2);
+	background-color: white;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+	position: fixed;
+    top: 12%; 
+    left: 50%;
+	z-index: 11
+
+}
+.color {
+	margin: 2px;
+	width: 25px;
+	height: 25px;
+	border-radius: 20px
+
 }
 
 /*.container-data {
@@ -49,6 +76,7 @@
 	border:  1px solid rgba(0,0,0,0.2);
 	font-family: Roboto,Arial,sans-serif;
 	box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07)
+	background-color: white;
 }
 
 
@@ -81,7 +109,7 @@
     border:  1px solid rgba(0,0,0,0.2);
     border-radius: 5px;
     text-align: center;
-    z-index: 11;
+    z-index: 5;
 }
 
 #overlay {

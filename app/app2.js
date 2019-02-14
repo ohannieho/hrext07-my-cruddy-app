@@ -6,10 +6,6 @@ interact with localstorage
  */
 
 $(document).ready(function(){
-  // this is where we jquery
-  //var keyData = 'ourKey'; // going to need to make this dynamic?
-//$('.container-data').append('<div class="note">' + localStorage.getItem() + '</div>');
-//[{title:, note:, time: }, ...]
 let arr = [];
 _.flatten([JSON.parse(localStorage.getItem('notepad'))]).includes(null) ? arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]).slice(1) : arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
 // let arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
@@ -20,6 +16,7 @@ function storedNotes(){
     if (obj !== null) {
       let $noteTitle = $(`<div class="note-title"> ${obj["title"]} </div>`);
       let $card = $(`<div class="card"></div>`);
+      $card.css('background-color', obj["cardColor"]);
       $noteTitle.prependTo($card).append('<div class="note" data-keyValue="'+ obj["title"] +'">'+ obj["body"] +'</div>');
       $card.prependTo('.noteBoard');
     }
@@ -27,26 +24,21 @@ function storedNotes(){
 }
 storedNotes();
 
-
+let color;
   $('.btn-add').on('click', function(e){
     //console.log(e);
+    
     let keyData = $('.input-key').val();
     let valueData = $('.input-value').val();
     let timeStamp = new Date();
     // write to db
-    // let arrAdd = [];
-    arr.push( {title: keyData, body: valueData, time: timeStamp} );
+    arr.push( {title: keyData, body: valueData, time: timeStamp, cardColor: color} );
     console.log(arr);
     localStorage.setItem('notepad', JSON.stringify(arr));
     // read from db
-    // var displayText = keyData + ' | ' + localStorage.getItem(keyData);
-    
-    // this only displays the last one? might want to switch to html
-    // and append a div
-    // <div class="display-data-item" data-keyValue="keyData">valueData</div>
-    // if you use backticks ` you can use ${templateLiterals}
-    // TODO make this vars make sense across the app
+
     let $card = $(`<div class="card"></div>`);
+    $card.css('background-color', color);
     $noteTitle = $(`<div class="note-title"> ${keyData} </div>`)
     $noteTitle.prependTo($card).append('<div class="note" data-keyValue="'+ keyData +'">'+valueData+'</div>');
 
@@ -59,27 +51,27 @@ storedNotes();
   });
 
 
-  // update db
-    // need to expand when  more than 1 item is added
-
 //edit box
 let editText, editTitle;
   $('.noteBoard').on('click', '.card', function(e){
-    //console.log(e);
+    console.log(e);
+    // console.log(this);
+    // $(this).css('background-color', 'red');
+    // $(this).css()
+
     editText = e.currentTarget.lastChild.children["0"].innerText;
     editTitle = e.currentTarget.lastChild.children["0"].dataset.keyvalue;
-    //var $editText = $(`<textarea type="text" class="edit-value">${editText}</textarea>`);
     $('.edit-value').empty()
-    let $editText = $('.edit-value').text(editText);
+    let $editText = $('.edit-value').val(editText);
     let $editTitle = $('.edit-key').val(editTitle);
+    
+    $('#color-box').css('top', '42%');
     $('#overlay').css('display', 'block');
-    // $editTitle.prependTo('.box').prepend($editText);
     $('.box').show();
-    // var keyData = e.currentTarget.dataset.keyvalue;
-    // $(keyData).css("text-decoration", "line-through");
 
-    //localStorage.removeItem(keyData);
-    // $('.container-data').text('');
+    //what if i get that exact card to pop out instead of a box
+
+
   });
   
 
@@ -97,12 +89,9 @@ let editText, editTitle;
 
 //update
   $('.btn-update').on('click', function(){
-    //console.log('works');
     let newTitle = $('.edit-key').val();
     let newText = $('.edit-value').val();
     let timeStamp = new Date();
-    // localStorage.removeItem(editTitle);
-    // localStorage.setItem(newTitle, newText);
     var arrUpdate = arr.map((obj)  => {
       if (editTitle === obj["title"]) {
         console.log('hello');
@@ -123,8 +112,32 @@ let editText, editTitle;
   $('#overlay').on('click', function (){
     $('#overlay').css('display', 'none');
     $('.box').hide();
+    $('#color-box').css('top', '12%');
 
   })
+
+// clear storage
+  $('.btn-clear').click(function(){
+    localStorage.clear();
+    arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
+    $('.noteBoard').empty();
+    storedNotes();
+  });
+
+// color change
+  $('.btn-color').on('mouseenter', function(){
+    $('#color-box').fadeIn(100).css('display', 'flex');
+  })
+  $('.btn-color').on('mouseleave', function(){
+    $('#color-box').fadeOut(150);
+  })
+
+  $(".color").on('click', function(e) { 
+      color = $(this).css('background-color');
+      // console.log(color);
+      console.log(e)
+      $('.container-form').css('background-color', color);
+  });
   //uncross line
   //  $('.container-data').on('click', '.note', function(e){
   //   // console.log(e.currentTarget);
@@ -134,12 +147,6 @@ let editText, editTitle;
   //   // $('.container-data').text('');
   // });
 
-  // delete all?
-  $('.btn-clear').click(function(){
-    localStorage.clear();
-    arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
-    $('.noteBoard').empty();
-    storedNotes();
-  });
+
 
 });
