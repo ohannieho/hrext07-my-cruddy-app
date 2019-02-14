@@ -10,6 +10,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
   <script src="app/app2.js"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
   <!--
@@ -28,21 +29,23 @@ container for the response-feedback (start with alert)
 <div class="container-main">
   <header align='center'>My Note App</header>
   <div class="container-form">
-    <input type="text" class="input-key" placeholder="enter title">
+    <input type="text" class="input-key" placeholder="Take a note...">
     <textarea type="text" class="input-value" placeholder="enter notes"></textarea></br>
     <div id=toolbar>
-      <button class="btn-add">Submit</button>
+      <button class="btn-add">Save</button>
       <!-- <button class="btn-update">Update</button> -->
       <button class="btn-color">Color
-        <div id="color-box">
+        <div id="color-box" class='setColor'>
           <div class="color" style="background-color:#6dd3ce;"></div>
           <div class="color" style="background-color:#c8e9a0;"></div>
           <div class="color" style="background-color:#f7a278;"></div>
           <div class="color" style="background-color:#a13d63;"></div>
-          <div class="color" style="background-color:#351e29;"></div>
+          <div class="color" style="background-color:#ffffff; border: 1px solid rgba(0,0,0,0.2);"></div>
         </div>
       </button>
       <button class="btn-clear">Clear</button>
+      <button class="grid-view" style='display: none'>Grid</button>
+      <button class="list-view">List</button>
 
     </div>
   </div>
@@ -57,12 +60,12 @@ container for the response-feedback (start with alert)
       <button class="btn-update">Update</button>
       <button class="btn-delete">Delete</button>
       <button class="btn-color">Color
-        <div id="color-box">
+        <div id="color-box" class='editColor'>
           <div class="color" style="background-color:#6dd3ce;"></div>
           <div class="color" style="background-color:#c8e9a0;"></div>
           <div class="color" style="background-color:#f7a278;"></div>
           <div class="color" style="background-color:#a13d63;"></div>
-          <div class="color" style="background-color:#351e29;"></div>
+          <div class="color" style="background-color:#ffffff; border: 1px solid rgba(0,0,0,0.2);"></div>
         </div>
       </button>
     </div>

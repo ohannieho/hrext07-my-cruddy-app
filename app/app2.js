@@ -7,6 +7,8 @@ interact with localstorage
 
 $(document).ready(function(){
 let arr = [];
+let color;
+
 _.flatten([JSON.parse(localStorage.getItem('notepad'))]).includes(null) ? arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]).slice(1) : arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
 // let arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
 console.log(arr);
@@ -24,13 +26,16 @@ function storedNotes(){
 }
 storedNotes();
 
-let color;
+
   $('.btn-add').on('click', function(e){
     //console.log(e);
     
     let keyData = $('.input-key').val();
     let valueData = $('.input-value').val();
     let timeStamp = new Date();
+    if(color === undefined){
+      color = 'white';
+    }
     // write to db
     arr.push( {title: keyData, body: valueData, time: timeStamp, cardColor: color} );
     console.log(arr);
@@ -44,6 +49,8 @@ let color;
 
     $('.input-key').val('');
     $('.input-value').val('');
+    $('.input-value').hide();
+    $('.input-key').attr('placeholder', 'Take a note...');
     $card.prependTo('.noteBoard');
     //need to be able to select note card and be able to edit that note card
     //need to make an add note card button
@@ -52,20 +59,22 @@ let color;
 
 
 //edit box
-let editText, editTitle;
+let editText, editTitle, currentThis;
   $('.noteBoard').on('click', '.card', function(e){
-    console.log(e);
-    // console.log(this);
-    // $(this).css('background-color', 'red');
+    //console.log(e);
+    $('.edit-value').show();
+    currentThis = this;
+    color = $(this).css('background-color');
+    $(this).hide();
     // $(this).css()
 
     editText = e.currentTarget.lastChild.children["0"].innerText;
     editTitle = e.currentTarget.lastChild.children["0"].dataset.keyvalue;
-    $('.edit-value').empty()
+    // $('.edit-value').empty()
     let $editText = $('.edit-value').val(editText);
     let $editTitle = $('.edit-key').val(editTitle);
-    
-    $('#color-box').css('top', '42%');
+    $('.box').css('background-color', color);
+    // $('#color-box').css('top', '42%');
     $('#overlay').css('display', 'block');
     $('.box').show();
 
@@ -85,7 +94,7 @@ let editText, editTitle;
     $('.box').hide();
     $('.noteBoard').empty();
     storedNotes();
-  })
+  });
 
 //update
   $('.btn-update').on('click', function(){
@@ -94,8 +103,7 @@ let editText, editTitle;
     let timeStamp = new Date();
     var arrUpdate = arr.map((obj)  => {
       if (editTitle === obj["title"]) {
-        console.log('hello');
-        return ({title: newTitle, body: newText, time: timeStamp});
+        return ({title: newTitle, body: newText, time: timeStamp, cardColor: color});
       }else {
         return obj;
       }
@@ -106,15 +114,16 @@ let editText, editTitle;
     $('.box').hide();
     $('.noteBoard').empty();
     storedNotes();
-  })
+    color = 'white';
+  });
 
 //removes overlay
   $('#overlay').on('click', function (){
     $('#overlay').css('display', 'none');
+    $(currentThis).show();
     $('.box').hide();
-    $('#color-box').css('top', '12%');
 
-  })
+  });
 
 // clear storage
   $('.btn-clear').click(function(){
@@ -125,18 +134,59 @@ let editText, editTitle;
   });
 
 // color change
-  $('.btn-color').on('mouseenter', function(){
-    $('#color-box').fadeIn(100).css('display', 'flex');
-  })
-  $('.btn-color').on('mouseleave', function(){
-    $('#color-box').fadeOut(150);
-  })
+  let currentBox;
+  $('.btn-color').on('mouseenter', function(e){
+    currentBox = e.currentTarget.parentElement.parentNode.className//currentTarget.parentElement.parentElement.className;
+    console.log('btncolor ' + currentBox);
+    if(currentBox !== 'box'){
+      $('.setColor').fadeIn(100).css('display', 'flex');
+    }else {
+      $('.editColor').css('top', '35%');
+      $('.editColor').fadeIn(100).css('display', 'flex');
+    }
+  });
 
-  $(".color").on('click', function(e) { 
+  $('.btn-color').on('mouseleave', function(){
+    // $('#color-box').css('top', '10%');
+    $('#color-box').fadeOut(150);
+    $('.editColor').fadeOut(150);
+  });
+
+  $(".color").on('click', function() { 
       color = $(this).css('background-color');
-      // console.log(color);
-      console.log(e)
-      $('.container-form').css('background-color', color);
+      console.log('color ' + currentBox);
+      $(`.${currentBox}`).css('background-color', color);
+  });
+
+  $('.list-view').on('click', function() {
+    $('.noteBoard').css('flex-direction', 'column');
+    $('.card').css('width', '500px');
+    $('.list-view').hide();
+    $('.grid-view').show();
+  });
+
+  $('.grid-view').on('click', function() {
+    $('.noteBoard').css('flex-direction', 'row');
+    $('.card').css('width', '250px');
+    $('.list-view').show();
+    $('.grid-view').hide();
+  });
+
+  $('.input-key').on('click', function() {
+    $('.input-value').show();
+    $('.input-key').attr('placeholder', 'Title');
+    $('.setColor').css('top', '10%');
+  });
+
+  $(document).mouseup(function(e) {
+    var container = $('.input-value')
+     if (!container.is(e.target) && container.has(e.target).length === 0) 
+    {
+        container.hide();
+        $('.input-key').attr('placeholder', 'Take a note...');
+        $('.setColor').css('top', '5%');
+    }
+    
   });
   //uncross line
   //  $('.container-data').on('click', '.note', function(e){

@@ -1,6 +1,16 @@
 .container-main{
-	display: grid;
-	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.noteBoard {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: auto;
+	margin-top: 10px;
+	margin-left: 60px;
+	margin-right: 60px;
 }
 .container-form {
 	display: grid;
@@ -19,7 +29,7 @@
 
 .input-key, .edit-key{
 	height: auto;
-	width: 200px;
+	width: 500px;
 	border: 0px;
 	padding-bottom: 5px;
 	font-size: 17.5px;
@@ -27,13 +37,15 @@
 	background-color: inherit;
 }
 .input-value, .edit-value{
+	display: none;
 	height: auto;
-	width: 200px;
+	width: 500px;
 	border:0px;
 	font-size: .875rem;
 	font-family: Roboto,Arial,sans-serif;
 	resize: vertical;
 	background-color: inherit;
+	line-height: auto;
 }
 #color-box {
 	display: none;
@@ -44,18 +56,18 @@
 	border: 1px solid rgba(0,0,0,0.2);
 	background-color: white;
 	box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
-	position: fixed;
-    top: 12%; 
-    left: 50%;
-	z-index: 11
-
+	position: absolute;
+	top: 5%;
+    left: 45%;
+	z-index: 4;
+	cursor: pointer;
 }
+
 .color {
-	margin: 2px;
+	margin: 1px;
 	width: 25px;
 	height: 25px;
 	border-radius: 20px
-
 }
 
 /*.container-data {
@@ -69,9 +81,9 @@
 .card {
 	border-radius: 10px;
 	padding: 10px;
-	margin-bottom: 10px;
+	margin: 5px;
 	height: auto;
-	width: 500px;
+	width: 250px;
 	color: black;
 	border:  1px solid rgba(0,0,0,0.2);
 	font-family: Roboto,Arial,sans-serif;
@@ -96,20 +108,20 @@
 }
 
 .box{
-   	width: 300px;
+   	width: 500px;
     height: auto;
     /*line-height: 200px;*/
     box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     position: fixed;
     top: 50%; 
-    left: 50%;
+    left: 36%;
     margin-top: -100px;
     margin-left: -150px;
     background-color: white;
     border:  1px solid rgba(0,0,0,0.2);
     border-radius: 5px;
     text-align: center;
-    z-index: 5;
+    z-index: 3;
 }
 
 #overlay {
