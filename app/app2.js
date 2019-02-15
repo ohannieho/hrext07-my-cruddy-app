@@ -8,10 +8,9 @@ interact with localstorage
 $(document).ready(function(){
 let arr = [];
 let color;
-
+let timeStamp;
 _.flatten([JSON.parse(localStorage.getItem('notepad'))]).includes(null) ? arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]).slice(1) : arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
 // let arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
-console.log(arr);
 const localNotes = {...localStorage}
 function storedNotes(){
   arr.forEach(obj => { 
@@ -21,18 +20,20 @@ function storedNotes(){
       $card.css('background-color', obj["cardColor"]);
       $noteTitle.prependTo($card).append('<div class="note" data-keyValue="'+ obj["title"] +'">'+ obj["body"] +'</div>');
       $card.prependTo('.noteBoard');
+      console.log(obj['cardColor']);
+      if(obj['cardColor'] === ('white' || 'rgb(255, 255, 255)')){
+        $card.css('border','1px solid rgba(0,0,0,0.2)');
+      }
     }
   })
 }
 storedNotes();
 
 
-  $('.btn-add').on('click', function(e){
-    //console.log(e);
-    
+  $('.btn-add').on('click', function(e){    
     let keyData = $('.input-key').val();
     let valueData = $('.input-value').val();
-    let timeStamp = new Date();
+    timeStamp = new Date().toLocaleString();
     if(color === undefined){
       color = 'white';
     }
@@ -44,6 +45,10 @@ storedNotes();
 
     let $card = $(`<div class="card"></div>`);
     $card.css('background-color', color);
+    if(color === ('white' || 'rgb(255, 255, 255)')){
+      $card.css('border', '1px solid rgba(0,0,0,0.2)');
+    }
+
     $noteTitle = $(`<div class="note-title"> ${keyData} </div>`)
     $noteTitle.prependTo($card).append('<div class="note" data-keyValue="'+ keyData +'">'+valueData+'</div>');
 
@@ -56,18 +61,20 @@ storedNotes();
     //need to make an add note card button
     $('.container-form').css('background-color', 'white');
     color = 'white';
+    // $('.card').css('border', 'none')
   });
 
 
-//edit box
+//edit box card
+
 let editText, editTitle, currentThis;
   $('.noteBoard').on('click', '.card', function(e){
-    //console.log(e);
+
     $('.edit-value').show();
     currentThis = this;
     color = $(this).css('background-color');
     $(this).hide();
-    // $(this).css()
+
 
     editText = e.currentTarget.lastChild.children["0"].innerText;
     editTitle = e.currentTarget.lastChild.children["0"].dataset.keyvalue;
@@ -75,13 +82,17 @@ let editText, editTitle, currentThis;
     let $editText = $('.edit-value').val(editText);
     let $editTitle = $('.edit-key').val(editTitle);
     $('.box').css('background-color', color);
-    // $('#color-box').css('top', '42%');
     $('#overlay').css('display', 'block');
-    $('.box').show();
+    $('.box').css('display', 'flex');
+    let createdOn;
+    arr.forEach(obj => {
+      if(obj['title'] === editTitle && obj['body'] === editText){
+        createdOn = obj['time'];
+      }
+    })
+    $('.box').prepend(`<div class='time'>Edited ${createdOn}</div>`);
 
     //what if i get that exact card to pop out instead of a box
-
-
   });
   
 
@@ -94,14 +105,18 @@ let editText, editTitle, currentThis;
     $('#overlay').css('display', 'none');
     $('.box').hide();
     $('.noteBoard').empty();
+    $('.time').empty();
+    color = 'white';
     storedNotes();
   });
 
+
 //update
+
   $('.btn-update').on('click', function(){
     let newTitle = $('.edit-key').val();
     let newText = $('.edit-value').val();
-    let timeStamp = new Date();
+    timeStamp = new Date().toLocaleString();
     var arrUpdate = arr.map((obj)  => {
       if (editTitle === obj["title"]) {
         return ({title: newTitle, body: newText, time: timeStamp, cardColor: color});
@@ -116,33 +131,37 @@ let editText, editTitle, currentThis;
     $('.noteBoard').empty();
     storedNotes();
     color = 'white';
+    $('.time').empty();
   });
 
 //removes overlay
+
   $('#overlay').on('click', function (){
     $('#overlay').css('display', 'none');
     $(currentThis).show();
     $('.box').hide();
-
+    $('.time').empty();
+    color = 'white'
   });
 
 // clear storage
+
   $('.btn-clear').click(function(){
     localStorage.clear();
     arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
     $('.noteBoard').empty();
+    color = white;
     storedNotes();
   });
 
 // color change
+
   let currentBox;
   $('.btn-color').on('mouseenter', function(e){
-    currentBox = e.currentTarget.parentElement.parentNode.className//currentTarget.parentElement.parentElement.className;
-    console.log('btncolor ' + currentBox);
+    currentBox = e.currentTarget.parentElement.parentNode.className//currentTarget.parentElement.parentElement.className; 
     if(currentBox !== 'box'){
       $('.setColor').fadeIn(100).css('display', 'flex');
     }else {
-     // $('.editColor').css('top', '40%');
       $('.editColor').fadeIn(100).css('display', 'flex');
     }
   });
@@ -178,6 +197,8 @@ let editText, editTitle, currentThis;
     //$('.setColor').css('top', '12%');
   });
 
+//to change container form back to start;
+
   $(document).mouseup(function(e) {
     var container = $('.input-value')
      if (!container.is(e.target) && container.has(e.target).length === 0) 
@@ -189,12 +210,22 @@ let editText, editTitle, currentThis;
     
   });
 
+//expand textarea
+
   $("textarea").keyup(function(e) {
     $(this).height(30);
     $(this).height(this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth")));
 });
 
-  //uncross line
+//card hover
+$('.noteBoard').on('mouseover', '.card', function(e){
+  $(this).css('box-shadow', '2px 2px 2px rgba(0,0,0,0.5)');
+});
+
+$('.noteBoard').on('mouseleave', '.card', function(e){
+  $(this).css('box-shadow', 'none');
+});
+//uncross line
   //  $('.container-data').on('click', '.note', function(e){
   //   // console.log(e.currentTarget);
   //   var keyData = e.currentTarget.dataset.keyvalue;

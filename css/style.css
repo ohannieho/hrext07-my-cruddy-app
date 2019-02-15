@@ -5,12 +5,12 @@
 }
 .noteBoard {
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+	flex-flow:row wrap;
 	width: auto;
 	margin-top: 10px;
 	margin-left: 60px;
 	margin-right: 60px;
+	align-items: flex-start;
 }
 .container-form {
 	display: grid;
@@ -83,13 +83,6 @@
 	border-radius: 20px
 }
 
-/*.container-data {
-	height: 250px;
-	width: 250px;
-	border: 1px solid gray;
-	padding: 5px;
-}*/
-
 header {
 	font-family: Roboto,Arial,sans-serif;
 	font-size: 22px;
@@ -103,10 +96,11 @@ header {
 	height: auto;
 	width: 250px;
 	color: black;
-	border:  1px solid rgba(0,0,0,0.2);
+	border:  1px;
 	font-family: Roboto,Arial,sans-serif;
 	box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07)
 	background-color: white;
+
 }
 
 
@@ -125,7 +119,15 @@ header {
 	/*word-wrap: break-word;*/
 }
 
+.time {
+	color: gray;
+	font-family: Roboto,Arial,sans-serif;
+	align-self: flex-end;
+	font-size: 13px;
+}
+
 .box{
+	flex-direction: column;	
    	width: 500px;
     height: auto;
     /*line-height: 200px;*/
