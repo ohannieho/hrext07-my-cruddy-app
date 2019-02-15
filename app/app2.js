@@ -54,7 +54,8 @@ storedNotes();
     $card.prependTo('.noteBoard');
     //need to be able to select note card and be able to edit that note card
     //need to make an add note card button
-
+    $('.container-form').css('background-color', 'white');
+    color = 'white';
   });
 
 
@@ -141,15 +142,14 @@ let editText, editTitle, currentThis;
     if(currentBox !== 'box'){
       $('.setColor').fadeIn(100).css('display', 'flex');
     }else {
-      $('.editColor').css('top', '35%');
+     // $('.editColor').css('top', '40%');
       $('.editColor').fadeIn(100).css('display', 'flex');
     }
   });
 
   $('.btn-color').on('mouseleave', function(){
-    // $('#color-box').css('top', '10%');
-    $('#color-box').fadeOut(150);
-    $('.editColor').fadeOut(150);
+    $('#color-box').fadeOut();
+    $('.editColor').fadeOut();
   });
 
   $(".color").on('click', function() { 
@@ -175,7 +175,7 @@ let editText, editTitle, currentThis;
   $('.input-key').on('click', function() {
     $('.input-value').show();
     $('.input-key').attr('placeholder', 'Title');
-    $('.setColor').css('top', '10%');
+    //$('.setColor').css('top', '12%');
   });
 
   $(document).mouseup(function(e) {
@@ -184,10 +184,16 @@ let editText, editTitle, currentThis;
     {
         container.hide();
         $('.input-key').attr('placeholder', 'Take a note...');
-        $('.setColor').css('top', '5%');
+        //$('.setColor').css('top', '7%');
     }
     
   });
+
+  $("textarea").keyup(function(e) {
+    $(this).height(30);
+    $(this).height(this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth")));
+});
+
   //uncross line
   //  $('.container-data').on('click', '.note', function(e){
   //   // console.log(e.currentTarget);
