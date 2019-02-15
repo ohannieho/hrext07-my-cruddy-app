@@ -21,8 +21,9 @@ function storedNotes(){
       $noteTitle.prependTo($card).append('<div class="note" data-keyValue="'+ obj["title"] +'">'+ obj["body"] +'</div>');
       $card.prependTo('.noteBoard');
       console.log(obj['cardColor']);
-      if(obj['cardColor'] === ('white' || 'rgb(255, 255, 255)')){
+      if(obj['cardColor'] === ('rgb(255, 255, 255)')){
         $card.css('border','1px solid rgba(0,0,0,0.2)');
+        console.log('hello');
       }
     }
   })
@@ -35,7 +36,7 @@ storedNotes();
     let valueData = $('.input-value').val();
     timeStamp = new Date().toLocaleString();
     if(color === undefined){
-      color = 'white';
+      color = ('rgb(255, 255, 255)');
     }
     // write to db
     arr.push( {title: keyData, body: valueData, time: timeStamp, cardColor: color} );
@@ -45,7 +46,7 @@ storedNotes();
 
     let $card = $(`<div class="card"></div>`);
     $card.css('background-color', color);
-    if(color === ('white' || 'rgb(255, 255, 255)')){
+    if(color === ('rgb(255, 255, 255)')){
       $card.css('border', '1px solid rgba(0,0,0,0.2)');
     }
 
@@ -60,7 +61,7 @@ storedNotes();
     //need to be able to select note card and be able to edit that note card
     //need to make an add note card button
     $('.container-form').css('background-color', 'white');
-    color = 'white';
+    color = ('rgb(255, 255, 255)');
     // $('.card').css('border', 'none')
   });
 
@@ -106,7 +107,7 @@ let editText, editTitle, currentThis;
     $('.box').hide();
     $('.noteBoard').empty();
     $('.time').empty();
-    color = 'white';
+    color = ('rgb(255, 255, 255)');
     storedNotes();
   });
 
@@ -130,7 +131,7 @@ let editText, editTitle, currentThis;
     $('.box').hide();
     $('.noteBoard').empty();
     storedNotes();
-    color = 'white';
+    color = ('rgb(255, 255, 255)');
     $('.time').empty();
   });
 
@@ -141,7 +142,7 @@ let editText, editTitle, currentThis;
     $(currentThis).show();
     $('.box').hide();
     $('.time').empty();
-    color = 'white'
+    color = ('rgb(255, 255, 255)');
   });
 
 // clear storage
@@ -150,7 +151,7 @@ let editText, editTitle, currentThis;
     localStorage.clear();
     arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
     $('.noteBoard').empty();
-    color = white;
+    color = ('rgb(255, 255, 255)');
     storedNotes();
   });
 

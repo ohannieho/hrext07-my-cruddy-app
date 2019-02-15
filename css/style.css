@@ -98,9 +98,8 @@ header {
 	color: black;
 	border:  1px;
 	font-family: Roboto,Arial,sans-serif;
-	box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07)
+	/*box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07)*/
 	background-color: white;
-
 }
 
 
@@ -122,8 +121,9 @@ header {
 .time {
 	color: gray;
 	font-family: Roboto,Arial,sans-serif;
+	font-style: italic;
 	align-self: flex-end;
-	font-size: 13px;
+	font-size: 12px;
 }
 
 .box{
@@ -138,7 +138,7 @@ header {
     margin-top: -100px;
     margin-left: -150px;
     background-color: white;
-    border:  1px solid rgba(0,0,0,0.2);
+    border:  none;
     border-radius: 5px;
     text-align: center;
     z-index: 3;
