@@ -11,7 +11,7 @@ let color;
 let timeStamp;
 _.flatten([JSON.parse(localStorage.getItem('notepad'))]).includes(null) ? arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]).slice(1) : arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
 // let arr = _.flatten([JSON.parse(localStorage.getItem('notepad'))]);
-const localNotes = {...localStorage}
+// const localNotes = {...localStorage}
 function storedNotes(){
   arr.forEach(obj => { 
     if (obj !== null) {
@@ -23,7 +23,6 @@ function storedNotes(){
       console.log(obj['cardColor']);
       if(obj['cardColor'] === ('rgb(255, 255, 255)')){
         $card.css('border','1px solid rgba(0,0,0,0.2)');
-        console.log('hello');
       }
     }
   })
@@ -74,7 +73,10 @@ let editText, editTitle, currentThis;
     $('.edit-value').show();
     currentThis = this;
     color = $(this).css('background-color');
-    $(this).hide();
+    // $(this).hide();
+    $(this).animate({ 
+        opacity: 0.0,
+      }, 200 );
 
 
     editText = e.currentTarget.lastChild.children["0"].innerText;
@@ -139,7 +141,9 @@ let editText, editTitle, currentThis;
 
   $('#overlay').on('click', function (){
     $('#overlay').css('display', 'none');
-    $(currentThis).show();
+    $(currentThis).animate({ 
+        opacity: 1,        
+      }, 300 );
     $('.box').hide();
     $('.time').empty();
     color = ('rgb(255, 255, 255)');
