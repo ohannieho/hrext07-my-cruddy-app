@@ -11,5 +11,7 @@ Create Read Update and Delete framework using JS
 - [ ] How to view data? (style?)
 - [ ] UI/UX considerations (how are we going to use this)
 
-### Advanced Reqs
-- [ ] Item that I added goes here...
+### My Plan of Action
+- [ ] Utilize CSS and HTML to design the sites architecture and user experience
+- [ ] Build a note input functionality using JavaScript and jQuery that gives user the ability to create new notes, delete notes, and update notes
+- [ ] Use localStorage as a simple database to save, delete, and update user’s notes
